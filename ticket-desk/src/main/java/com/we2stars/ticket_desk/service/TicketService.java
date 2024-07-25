@@ -1,7 +1,6 @@
 package com.we2stars.ticket_desk.service;
 
 import com.we2stars.ticket_desk.dto.TicketDTO;
-import com.we2stars.ticket_desk.dto.UserScoreDTO;
 import com.we2stars.ticket_desk.model.AppUser;
 import com.we2stars.ticket_desk.model.Tickets;
 import com.we2stars.ticket_desk.model.enums.TicketStatus;
