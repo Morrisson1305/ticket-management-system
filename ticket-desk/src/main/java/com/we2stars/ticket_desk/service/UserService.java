@@ -14,9 +14,9 @@ public interface UserService {
 
      List<AppUser> getAllUsers();
 
-     Optional<AppUser> findUserByEmail(String email);
+     AppUser findUserByEmail(String email);
 
-     String register(AppUser user, String password2);
+
 
      List<UserScoreDTO> getAllUserScores();
 

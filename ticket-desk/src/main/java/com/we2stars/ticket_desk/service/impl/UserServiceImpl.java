@@ -43,26 +43,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<AppUser> findUserByEmail(String email) {
+    public AppUser findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
 
-    @Override
-    public String register(AppUser user, String password2) {
-        if (user.getPassword() != null && !user.getPassword().equals(password2)) {
-            throw new PasswordException("Passwords do not match.");
-        }
-        Optional<AppUser> userFromDb = userRepository.findByEmail(user.getEmail());
-        if (userFromDb.isPresent()) {
-            throw new EmailException("Email is already used.");
-        }
-        user.setType(UserType.USER);
-        user.setPassword(user.getPassword());
-        userRepository.save(user);
-        //Todo send registration email to users.
-        return "User successfully registered.";
-    }
+
 
     @Override
     public List<UserScoreDTO> getAllUserScores() {

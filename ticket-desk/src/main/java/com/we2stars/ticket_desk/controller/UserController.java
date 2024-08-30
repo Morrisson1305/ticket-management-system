@@ -1,13 +1,19 @@
 package com.we2stars.ticket_desk.controller;
 
+import com.we2stars.ticket_desk.dto.RegistrationRequest;
 import com.we2stars.ticket_desk.dto.UserScoreDTO;
+import com.we2stars.ticket_desk.exceptions.InputFieldException;
+import com.we2stars.ticket_desk.modal_mapper.AuthenticationMapper;
 import com.we2stars.ticket_desk.model.AppUser;
 import com.we2stars.ticket_desk.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -20,6 +26,7 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+
 
     @GetMapping("/admin/users")
     @PreAuthorize("hasRole('ROLE_TICKET_MANAGER')")
@@ -41,15 +48,10 @@ public class UserController {
 
     @GetMapping("/admin/users/{email}")
     @PreAuthorize("hasRole('TICKET_MANAGER')")
-    public ResponseEntity<Optional<AppUser>> getUserByEmail(@RequestBody String email){
+    public ResponseEntity<AppUser> getUserByEmail(@RequestBody String email){
         return ResponseEntity.ok(userService.findUserByEmail(email));
     }
 
-    @PostMapping("/admin/register")
-    @PreAuthorize("hasRole('TICKET_MANAGER')")
-    public ResponseEntity<String> registration(@RequestBody AppUser user, String password2){
-        return ResponseEntity.ok(userService.register(user, password2));
-    }
 
 
     @GetMapping("/admin/score")
